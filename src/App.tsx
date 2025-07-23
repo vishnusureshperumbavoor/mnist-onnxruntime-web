@@ -171,7 +171,20 @@ function App() {
         <>
           <h2>Model output (digit class probabilities):</h2>
           <p>
-            Predicted digit: <b>{output.indexOf(Math.max(...output))}</b>
+            {(() => {
+              // Softmax calculation
+              const exp = Array.from(output).map((v) => Math.exp(v));
+              const sumExp = exp.reduce((a, b) => a + b, 0);
+              const probs = exp.map((v) => v / sumExp);
+              const predIdx = probs.indexOf(Math.max(...probs));
+              const predProb = probs[predIdx];
+              return (
+                <>
+                  Predicted digit: <b>{predIdx}</b> (
+                  {(predProb * 100).toFixed(2)}% sure)
+                </>
+              );
+            })()}
           </p>
         </>
       )}
