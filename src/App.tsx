@@ -110,8 +110,10 @@ function App() {
     try {
       const session = sessionRef.current;
       if (!session) throw new Error("Model not loaded");
-      const imgData = getImageData();
-      const inputTensor = new ort.Tensor("float32", imgData, [1, 1, 28, 28]);
+      const inputType = "float32";
+      const imgData = getImageData(); // Float32Array of shape [1*1*28*28]
+      const inputShape = [1, 1, 28, 28]; // batch, channel, height, width
+      const inputTensor = new ort.Tensor(inputType, imgData, inputShape);
       const feeds: Record<string, ort.Tensor> = {};
       feeds[session.inputNames[0]] = inputTensor;
       const results = await session.run(feeds);
