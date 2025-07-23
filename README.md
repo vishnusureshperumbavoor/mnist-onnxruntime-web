@@ -8,4 +8,4 @@ add the above line in defineConfig of vite.config.json
 
 Model has to be added in public folder to load
 
-<video src="mnist.mp4" controls width="400"></video>
+[Demo Video (mnist.mp4)](mnist.mp4)
